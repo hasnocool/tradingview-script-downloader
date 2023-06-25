@@ -1,0 +1,22 @@
+# Directories
+node_modules/
+dist/
+Backups/
+PineScripts/
+PineScripts_Cleaned/
+PineScripts_Editors-Picks/
+PineScripts_Indicators/
+
+# Files
+.DS_Store
+.env
+geckodriver
+geckodriver.log
+README.md
+todo.md
+git.py
+git.sh
+# Python bytecode files
+
+*.pyc
+__pycache__/
