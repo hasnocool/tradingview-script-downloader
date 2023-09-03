@@ -10,13 +10,9 @@ def clean_pinescript(script):
     # Remove numbered lines dynamically
     lines = [line for line in lines if not re.match(r"^\d+\s*$", line.strip())]
 
-    # Find the index of "Copy code" line
-    copy_code_index = -1
-    for i, line in enumerate(lines):
-        if line.strip() == 'Copy code':
-            copy_code_index = i
-            break
-
+    copy_code_index = next(
+        (i for i, line in enumerate(lines) if line.strip() == 'Copy code'), -1
+    )
     # Remove the last line if it contains the word "Expand" followed by parentheses and a number
     if re.match(r"Expand \(\d+ lines\)", lines[-1].strip()):
         lines = lines[:-1]
@@ -24,8 +20,7 @@ def clean_pinescript(script):
     # Add comments to the lines preceding "Copy code"
     comment_lines = []
     for i in range(copy_code_index):
-        line = lines[i].strip()
-        if line:
+        if line := lines[i].strip():
             comment_lines.append(f"// {line}")
     lines = comment_lines + lines[copy_code_index + 1:]
 
@@ -34,8 +29,7 @@ def clean_pinescript(script):
     cleaned_script = cleaned_script.replace('\n\n', '\n')
     cleaned_script = cleaned_script.replace('=', ' = ')
     cleaned_script = cleaned_script.replace(':', ': ')
-    cleaned_script = cleaned_script.replace('  ', ' ')
-    return cleaned_script
+    return cleaned_script.replace('  ', ' ')
 
 # Specify the folder paths
 input_folder = 'PineScripts'

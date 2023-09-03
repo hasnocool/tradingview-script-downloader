@@ -22,7 +22,7 @@ def format_size(size):
 # Specify the directory path you want to count files in
 directory_path = "PineScripts"
 
-file_count = sum([len(files) for _, _, files in os.walk(directory_path)])
+file_count = sum(len(files) for _, _, files in os.walk(directory_path))
 directory_size = get_directory_size(directory_path)
 
 print(f"The number of files in '{directory_path}' is: {file_count}")
