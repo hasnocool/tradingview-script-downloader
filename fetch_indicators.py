@@ -21,7 +21,7 @@ driver = webdriver.Firefox(executable_path=geckodriver_path, options=firefox_opt
 base_url = 'https://www.tradingview.com/scripts/indicators/'
 
 async def download_page(session, page):
-    url = base_url + f'page-{page}/?script_type=strategies&script_access=open&sort=month_popular&route_range=1'
+    url = f'{base_url}page-{page}/?script_type=strategies&script_access=open&sort=month_popular&route_range=1'
 
     async with session.get(url) as response:
         content = await response.text()
@@ -60,7 +60,7 @@ async def download_page(session, page):
 
             # Extract PineScript code
             script_url = item.find('a', class_='tv-widget-idea__title').get('href')
-            script_full_url = 'https://www.tradingview.com' + script_url
+            script_full_url = f'https://www.tradingview.com{script_url}'
 
             # Open the script page with Firefox
             driver.get(script_full_url)
