@@ -1,0 +1,6 @@
+services:
+  downloader:
+    build: .
+    container_name: tradingview-pine-downloader
+    volumes:
+      - ./PineScripts:/data/PineScripts

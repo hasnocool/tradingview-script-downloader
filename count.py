@@ -1,29 +1,43 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
+"""Count downloaded Pine files and their total size."""
 
-import os
+import argparse
+from pathlib import Path
 
-def get_directory_size(directory):
-    total_size = 0
-    for dirpath, _, filenames in os.walk(directory):
-        for filename in filenames:
-            file_path = os.path.join(dirpath, filename)
-            total_size += os.path.getsize(file_path)
-    return total_size
 
-def format_size(size):
-    # Adapted from https://stackoverflow.com/a/1094933
-    units = ["B", "KB", "MB", "GB", "TB"]
+def get_directory_size(directory: Path) -> int:
+    return sum(path.stat().st_size for path in directory.rglob("*.pine"))
+
+
+def format_size(size: float) -> str:
+    units = ("B", "KB", "MB", "GB", "TB")
     index = 0
     while size >= 1024 and index < len(units) - 1:
         size /= 1024
         index += 1
     return f"{size:.2f} {units[index]}"
 
-# Specify the directory path you want to count files in
-directory_path = "PineScripts"
 
-file_count = sum([len(files) for _, _, files in os.walk(directory_path)])
-directory_size = get_directory_size(directory_path)
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "directory",
+        nargs="?",
+        default="PineScripts",
+        help="directory to inspect (default: PineScripts)",
+    )
+    args = parser.parse_args()
+    directory = Path(args.directory).expanduser()
 
-print(f"The number of files in '{directory_path}' is: {file_count}")
-print(f"The total size of the directory is: {format_size(directory_size)}")
+    if not directory.is_dir():
+        parser.error(f"directory does not exist: {directory}")
+
+    file_count = sum(1 for _ in directory.rglob("*.pine"))
+    directory_size = get_directory_size(directory)
+    print(f"The number of .pine files in '{directory}' is: {file_count}")
+    print(f"The total size of those files is: {format_size(directory_size)}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

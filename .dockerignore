@@ -1,0 +1,7 @@
+.git
+.gitignore
+PineScripts*
+Backups/
+__pycache__/
+*.pyc
+*.log

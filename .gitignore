@@ -2,10 +2,11 @@
 node_modules/
 dist/
 Backups/
-PineScripts/
-PineScripts_Cleaned/
-PineScripts_Editors-Picks/
-PineScripts_Indicators/
+PineScripts*/
+
+# Local environments and test caches
+.venv/
+.pytest_cache/
 
 # Files
 .DS_Store

@@ -1,4 +1,1 @@
-aiohttp
-bs4
-requests
-selenium
+aiohttp>=3.10,<4

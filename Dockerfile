@@ -1,17 +1,17 @@
-# Use an official Python runtime as the base image
-FROM python:3.9
+FROM python:3.12-slim
 
-# Set the working directory in the container
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Install Selenium, Requests, and BeautifulSoup
-RUN pip install selenium requests beautifulsoup4
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the Python script to the container
 COPY fetch.py .
+RUN mkdir -p /data/PineScripts
 
-# Set the volume to the current directory
-VOLUME /app
+VOLUME ["/data"]
 
-# Run the Python script when the container launches
-CMD ["python", "fetch.py"]
+ENTRYPOINT ["python", "fetch.py"]
+CMD ["--output", "/data/PineScripts"]
