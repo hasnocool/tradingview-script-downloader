@@ -8,10 +8,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY fetch.py .
-RUN mkdir -p /data/PineScripts
-
+COPY fetch.py count.py ./
+RUN mkdir -p /data/Pine/TradingView /data/Indexes /data/Logs /data/Backups
 VOLUME ["/data"]
 
 ENTRYPOINT ["python", "fetch.py"]
-CMD ["--output", "/data/PineScripts"]
+CMD ["--output", "/data/Pine/TradingView"]

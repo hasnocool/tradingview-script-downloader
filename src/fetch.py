@@ -37,7 +37,13 @@ except ImportError as exc:  # pragma: no cover - exercised only before installat
 
 TRADINGVIEW_ORIGIN = "https://www.tradingview.com"
 DEFAULT_PINE_BASE_URL = "https://pine-facade.tradingview.com/pine-facade"
-DEFAULT_OUTPUT = "PineScripts"
+SHARED_DOWNLOADS = Path(
+    os.environ.get(
+        "TRADING_SCRIPT_DOWNLOADS",
+        Path.home() / "Projects" / "TradingScriptDownloads",
+    )
+)
+DEFAULT_OUTPUT = str(SHARED_DOWNLOADS / "Pine" / "TradingView")
 DEFAULT_FEEDS = "recent,popular,editors-picks,indicators,strategies,libraries"
 PAGE_SIZE = 24
 RETRYABLE_STATUS_CODES = {408, 425, 429, 500, 502, 503, 504}

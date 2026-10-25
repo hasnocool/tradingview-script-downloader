@@ -3,6 +3,9 @@ node_modules/
 dist/
 Backups/
 PineScripts*/
+MQL_Sources_Public*/
+Public_Source_Index/
+Pine_Knowledge_Base/
 
 # Local environments and test caches
 .venv/
@@ -13,11 +16,11 @@ PineScripts*/
 .env
 geckodriver
 geckodriver.log
-README.md
 todo.md
 git.py
 git.sh
 # Python bytecode files
 
 *.pyc
+*.log
 __pycache__/

@@ -2,6 +2,7 @@
 """Count downloaded Pine files and their total size."""
 
 import argparse
+import os
 from pathlib import Path
 
 
@@ -19,12 +20,18 @@ def format_size(size: float) -> str:
 
 
 def main() -> int:
+    shared = Path(
+        os.environ.get(
+            "TRADING_SCRIPT_DOWNLOADS",
+            Path.home() / "Projects" / "TradingScriptDownloads",
+        )
+    )
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "directory",
         nargs="?",
-        default="PineScripts",
-        help="directory to inspect (default: PineScripts)",
+        default=str(shared / "Pine" / "TradingView"),
+        help="directory to inspect (default: shared TradingView archive)",
     )
     args = parser.parse_args()
     directory = Path(args.directory).expanduser()

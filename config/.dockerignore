@@ -1,6 +1,8 @@
 .git
 .gitignore
 PineScripts*
+Pine_Knowledge_Base/
+MQL_Sources_Public*
 Backups/
 __pycache__/
 *.pyc
